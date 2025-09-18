@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\AuthController;
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/verify-2fa', [AuthController::class, 'verifyTwoFactor']); // Added for 2FA verification
 
 // Temporarily moved out of middleware for debugging
 Route::apiResource('tools', ToolController::class);
