@@ -1,62 +1,185 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# vibecode-full-stack-starter-kit - Full-Stack Development Environment
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Generated on: Thu Sep  4 01:37:12 PM EEST 2025
+Location: /home/softart/scripts/vibecode-full-stack-starter-kit
 
-## About Laravel
+## 🚀 Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Frontend**: Next.js + React + TypeScript (Port 8200)
+- **Backend**: Laravel + PHP 8.2 + Nginx (Port 8201)  
+- **Database**: MySQL 8.0 (Port 8203)
+- **Cache**: Redis 7 (Port 8204)
+- **Development Tools**: Alpine container (Port 8205)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Quick Start
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Start the environment:**
+   ```bash
+   ./start.sh
+   ```
 
-## Learning Laravel
+2. **Access your applications:**
+   - Frontend: http://localhost:8200
+   - Backend: http://localhost:8201
+   - API Status: http://localhost:8201/api/status
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. **Stop the environment:**
+   ```bash
+   ./stop.sh
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🔧 Management Scripts
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- `./start.sh` - Start all services with auto-setup
+- `./stop.sh` - Stop all services
+- `./laravel-setup.sh` - Full Laravel initialization
+- `./db-manage.sh` - Database management utilities
 
-## Laravel Sponsors
+## 📁 Project Structure
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+vibecode-full-stack-starter-kit/
+├── frontend/             # Next.js application
+│   ├── src/             # Source code
+│   ├── public/          # Static assets
+│   ├── package.json     # Frontend dependencies
+│   └── next.config.js   # Next.js configuration
+├── backend/             # Laravel application
+│   ├── app/             # Application code
+│   ├── public/          # Web root
+│   ├── routes/          # API routes
+│   ├── database/        # Migrations, seeders
+│   ├── .env            # Laravel configuration
+│   └── composer.json    # Backend dependencies
+├── nginx/              # Nginx configuration
+├── docker/             # Docker configurations
+├── mysql/init/         # Database initialization
+├── tools/              # Development utilities
+├── docker-compose.yml  # Container orchestration
+└── README.md          # This documentation
+```
 
-### Premium Partners
+## 🐳 Docker Services
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+All services are isolated with unique names: `vibecode-full-stack-starter-kit_*`
 
-## Contributing
+- **frontend** - Next.js development server
+- **backend** - Nginx reverse proxy
+- **php_fpm** - PHP-FPM for Laravel
+- **mysql** - MySQL 8.0 database
+- **redis** - Redis cache server
+- **tools** - Development utilities container
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 💻 Development Commands
 
-## Code of Conduct
+### Frontend Development
+```bash
+# Access frontend container
+docker compose exec frontend sh
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Install packages
+docker compose exec frontend npm install package-name
 
-## Security Vulnerabilities
+# View frontend logs
+docker compose logs frontend -f
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Backend Development
+```bash
+# Access PHP container
+docker compose exec php_fpm sh
 
-## License
+# Laravel Artisan commands
+docker compose exec php_fpm php artisan --version
+docker compose exec php_fpm php artisan migrate
+docker compose exec php_fpm php artisan make:controller UserController
+docker compose exec php_fpm php artisan make:model Product -m
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# full-stack-starter-kit
+# Composer commands
+docker compose exec php_fpm composer install
+docker compose exec php_fpm composer require laravel/sanctum
+
+# View backend logs
+docker compose logs backend -f
+docker compose logs php_fpm -f
+```
+
+### Database Operations
+```bash
+# Connect to MySQL
+./db-manage.sh connect
+
+# Create backup
+./db-manage.sh backup
+
+# Connect to Redis
+./db-manage.sh redis
+
+# Direct MySQL access
+docker compose exec mysql mysql -u root -pvibecode-full-stack-starter-kit_mysql_pass vibecode-full-stack-starter-kit_app
+```
+
+## 🔐 Database Configuration
+
+**MySQL Credentials:**
+- Host: mysql (internal) / localhost:8203 (external)
+- Database: vibecode-full-stack-starter-kit_app
+- Username: root
+- Password: vibecode-full-stack-starter-kit_mysql_pass
+
+**Redis Configuration:**
+- Host: redis (internal) / localhost:8204 (external)  
+- Password: vibecode-full-stack-starter-kit_redis_pass
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+1. **Port conflicts:**
+   - Check if ports 8200-8205 are available
+   - Use `netstat -tulpn | grep :PORT` to check port usage
+
+2. **Permission issues:**
+   - Run `./laravel-setup.sh` to fix Laravel permissions
+
+3. **Services not starting:**
+   - Check Docker is running: `docker ps`
+   - View logs: `docker compose logs`
+
+### Useful Commands
+
+```bash
+# Check service status
+docker compose ps
+
+# View all logs
+docker compose logs -f
+
+# Restart specific service
+docker compose restart frontend
+docker compose restart backend
+
+# Rebuild services
+docker compose up -d --build
+
+# Clean up (removes containers and volumes)
+docker compose down -v
+```
+
+## 📊 Monitoring
+
+- **Service Status**: `docker compose ps`
+- **Resource Usage**: `docker stats`
+- **Logs**: `docker compose logs -f [service_name]`
+
+## 🔄 Updates
+
+To update the environment:
+1. Pull latest images: `docker compose pull`
+2. Rebuild services: `docker compose up -d --build`
+
+---
+
+**Generated with create-fullstack-env.sh**  
+**Project ID**: vibecode-full-stack-starter-kit  
+**Created**: Thu Sep  4 01:37:12 PM EEST 2025

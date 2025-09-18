@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.log
 .DS_Store
 .env
@@ -22,3 +23,44 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+=======
+# Environment files
+.env.local
+.env.production
+
+# Node modules
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Laravel
+backend/vendor/
+backend/storage/logs/*.log
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*
+
+# Docker
+.docker/
+
+# Database
+*.sql
+backup_*.sql
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+>>>>>>> 77502db941d3a39e97762e0a97a3ac483b084e01
