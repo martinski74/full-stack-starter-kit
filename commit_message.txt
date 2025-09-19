@@ -1,0 +1,7 @@
+feat: Implement tool status update and fix admin panel data loading
+
+This commit addresses several issues to improve the functionality of the admin panel:
+
+- **Fix admin panel data loading:** Corrected the frontend logic in `frontend/src/app/admin/page.tsx` to properly handle paginated API responses, ensuring all data (tools, categories, roles) loads correctly.
+- **Implement CORS for backend:** Configured Cross-Origin Resource Sharing (CORS) in the Laravel backend by adding `HandleCors` middleware to `backend/bootstrap/app.php` and creating `backend/config/cors.php`. This resolves the "Access-Control-Allow-Origin" error encountered during login and API calls from the frontend.
+- **Add tool status update API:** Implemented a new API endpoint `PUT /api/tools/{tool}/status` in `backend/routes/api.php` and a corresponding `updateStatus` method in `backend/app/Http/Controllers/Api/ToolController.php`. This allows administrators to approve or reject tools.
