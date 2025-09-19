@@ -49,5 +49,4 @@ class User extends Authenticatable
             'two_factor_secret' => 'encrypted', // Added for 2FA
         ];
     }
-
 }

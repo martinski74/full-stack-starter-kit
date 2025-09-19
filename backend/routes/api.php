@@ -11,18 +11,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/verify-2fa', [AuthController::class, 'verifyTwoFactor']); // Added for 2FA verification
 
-Route::get('/tools', [ToolController::class, 'index']);
-Route::get('/tools/{tool}', [ToolController::class, 'show']);
-Route::put('/tools/{tool}/status', [ToolController::class, 'updateStatus']);
-
+// Temporarily moved out of middleware for debugging
+Route::apiResource('tools', ToolController::class);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('roles', RoleController::class);
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/tools', [ToolController::class, 'store']);
-    Route::put('/tools/{tool}', [ToolController::class, 'update']);
-    Route::delete('/tools/{tool}', [ToolController::class, 'destroy']);
-
+Route::put('tools/{tool}/status', [ToolController::class, 'updateStatus']);Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });

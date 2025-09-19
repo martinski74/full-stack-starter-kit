@@ -52,13 +52,14 @@ export default function AdminPage() {
     setLoadingData(true);
     try {
       const [toolsRes, catRes, roleRes] = await Promise.all([
-        fetch(`${API}/tools`, { headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) } }),
-        fetch(`${API}/categories`, { headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) } }),
-        fetch(`${API}/roles`, { headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) } }),
+        fetch(`${API}/tools`, { headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) } }).catch(e => { console.error('fetch tools failed', e); throw e; }),
+        fetch(`${API}/categories`, { headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) } }).catch(e => { console.error('fetch categories failed', e); throw e; }),
+        fetch(`${API}/roles`, { headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) } }).catch(e => { console.error('fetch roles failed', e); throw e; }),
       ]);
 
       const toolsJson = await toolsRes.json();
-      setTools(Array.isArray(toolsJson?.data) ? toolsJson.data : toolsJson);
+      console.log(toolsJson);
+      setTools(toolsJson.data);
 
       const catJson = await catRes.json();
       setCategories(catJson);

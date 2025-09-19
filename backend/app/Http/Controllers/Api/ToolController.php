@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Tool;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Log;
 
 class ToolController extends Controller
 {
@@ -27,7 +26,6 @@ class ToolController extends Controller
             'category_ids.*' => ['integer'],
             'role_ids' => ['array'],
             'role_ids.*' => ['integer'],
-            'status' => ['sometimes', 'string'],
         ]);
 
         $tool = Tool::create($validated + ['user_id' => $request->user()?->id]);
@@ -58,7 +56,6 @@ class ToolController extends Controller
             'category_ids.*' => ['integer'],
             'role_ids' => ['array'],
             'role_ids.*' => ['integer'],
-            'status' => ['sometimes', 'string'],
         ]);
 
         $tool->update($validated);
@@ -72,32 +69,21 @@ class ToolController extends Controller
         return $tool->load(['categories', 'roles', 'user']);
     }
 
-    public function updateStatus(Request $request, Tool $tool)
-    {
-        Log::info('updateStatus started for tool: ' . $tool->id);
-        $startTime = microtime(true);
-
-        $validated = $request->validate([
-            'status' => ['required', Rule::in(['pending', 'approved', 'rejected'])],
-        ]);
-        Log::info('updateStatus validation completed in ' . (microtime(true) - $startTime) . ' seconds for tool: ' . $tool->id);
-
-        $updateTime = microtime(true);
-        $tool->update($validated);
-        Log::info('updateStatus tool update completed in ' . (microtime(true) - $updateTime) . ' seconds for tool: ' . $tool->id);
-
-        $loadTime = microtime(true);
-        $loadedTool = $tool->load(['categories', 'roles', 'user']);
-        Log::info('updateStatus tool load completed in ' . (microtime(true) - $loadTime) . ' seconds for tool: ' . $tool->id);
-
-        Log::info('updateStatus finished in ' . (microtime(true) - $startTime) . ' seconds for tool: ' . $tool->id);
-        return $loadedTool;
-    }
-
     public function destroy(Tool $tool)
     {
         $tool->delete();
         return response()->noContent();
+    }
+
+    public function updateStatus(Request $request, Tool $tool)
+    {
+        $validated = $request->validate([
+            'status' => ['required', 'string', Rule::in(['pending', 'approved', 'rejected'])],
+        ]);
+
+        $tool->update(['status' => $validated['status']]);
+
+        return response()->json($tool->load(['categories', 'roles', 'user']));
     }
 }
 

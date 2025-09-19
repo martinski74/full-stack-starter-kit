@@ -1,3 +1,29 @@
+<<<<<<< HEAD
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+Homestead.json
+Homestead.yaml
+Thumbs.db
+=======
 # Environment files
 .env.local
 .env.production
@@ -37,3 +63,4 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+>>>>>>> 2c8baa14d5a1f375e7ce46e0dfe1ffb7cae707fe

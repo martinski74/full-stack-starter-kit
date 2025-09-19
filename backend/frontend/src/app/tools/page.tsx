@@ -342,7 +342,8 @@ export default function ToolsPage() {
 	useEffect(() => {
 		const cachedUser = localStorage.getItem('user');
 		if (cachedUser) {
-			setUser(JSON.parse(cachedUser));
+			const parsedUser = JSON.parse(cachedUser);
+			setUser(parsedUser);
 		}
 	}, []);
 
@@ -370,6 +371,9 @@ export default function ToolsPage() {
 					<nav className="flex space-x-4 py-2 border-t border-gray-100">
 						<Link href="/dashboard" className="px-3 py-2 font-medium text-sm leading-5 rounded-md text-gray-600 hover:text-blue-700 hover:bg-blue-50 focus:outline-none focus:text-blue-700 focus:bg-blue-50 transition duration-150 ease-in-out">Табло</Link>
 						<Link href="/tools" className="px-3 py-2 font-medium text-sm leading-5 rounded-md text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 transition duration-150 ease-in-out">AI Инструменти</Link>
+						{user?.role === 'owner' && (
+							<Link href="/admin" className="px-3 py-2 font-medium text-sm leading-5 rounded-md text-gray-600 hover:text-blue-700 hover:bg-blue-50 focus:outline-none focus:text-blue-700 focus:bg-blue-50 transition duration-150 ease-in-out">Админ</Link>
+						)}
 					</nav>
 				</div>
 			</div>
@@ -497,5 +501,3 @@ export default function ToolsPage() {
 		</div>
 	);
 }
-
-
