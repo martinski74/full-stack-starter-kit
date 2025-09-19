@@ -15,6 +15,7 @@ class Tool extends Model
         'video_url',
         'difficulty',
         'user_id',
+        'status',
     ];
 
     /**
