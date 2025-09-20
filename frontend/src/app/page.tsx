@@ -12,6 +12,7 @@ const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [showTwoFactorInput, setShowTwoFactorInput] = useState<boolean>(false); // New state for 2FA
   const [twoFactorCode, setTwoFactorCode] = useState<string>(''); // New state for 2FA code
   const [twoFactorUserId, setTwoFactorUserId] = useState<number | null>(null); // New state for 2FA user ID
@@ -23,6 +24,7 @@ const LoginPage = () => {
     e.preventDefault();
     setError(null);
     setMessage(null);
+    setLoading(true);
 
     try {
       const response = await fetch('http://localhost:8201/api/login', {
@@ -59,6 +61,8 @@ const LoginPage = () => {
       setError(msg);
       addToast(msg, 'error');
       console.error('Network error during login:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,6 +70,7 @@ const LoginPage = () => {
     e.preventDefault();
     setError(null);
     setMessage(null);
+    setLoading(true);
 
     if (twoFactorUserId === null) {
       addToast('Няма идентификатор на потребител за 2FA.', 'error');
@@ -98,6 +103,8 @@ const LoginPage = () => {
       setError(msg);
       addToast(msg, 'error');
       console.error('Network error during 2FA verification:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -105,6 +112,7 @@ const LoginPage = () => {
     e.preventDefault();
     setError(null);
     setMessage(null);
+    setLoading(true);
 
     if (password !== confirmPassword) {
       const msg = 'Паролите не съвпадат.';
@@ -139,6 +147,8 @@ const LoginPage = () => {
       setError(msg);
       addToast(msg, 'error');
       console.error('Network error during registration:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -175,16 +185,25 @@ const LoginPage = () => {
                   value={twoFactorCode}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTwoFactorCode(e.target.value)}
                   maxLength={6}
+                  disabled={loading}
                 />
               </div>
               {error && <p className="text-center text-sm text-red-600">{error}</p>}
               {message && <p className="text-center text-sm text-green-600">{message}</p>}
               <button
                 type="submit"
-                className="w-full py-2.5 px-4 text-sm font-semibold rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full py-2.5 px-4 text-sm font-semibold rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
                 style={{ background: 'linear-gradient(90deg, #4a69ff, #7a5dff)' }}
+                disabled={loading}
               >
-                Потвърдете 2FA
+                {loading ? (
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  'Потвърдете 2FA'
+                )}
               </button>
             </form>
           ) : (
@@ -202,6 +221,7 @@ const LoginPage = () => {
                   placeholder="your.email@company.com"
                   value={email}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  disabled={loading}
                 />
               </div>
               <div>
@@ -217,6 +237,7 @@ const LoginPage = () => {
                   placeholder=""
                   value={password}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  disabled={loading}
                 />
               </div>
 
@@ -225,10 +246,18 @@ const LoginPage = () => {
 
               <button
                 type="submit"
-                className="w-full py-2.5 px-4 text-sm font-semibold rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full py-2.5 px-4 text-sm font-semibold rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
                 style={{ background: 'linear-gradient(90deg, #4a69ff, #7a5dff)' }}
+                disabled={loading}
               >
-                Влизане
+                {loading ? (
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  'Влизане'
+                )}
               </button>
             </form>
           )
@@ -247,6 +276,7 @@ const LoginPage = () => {
                 placeholder="Вашето име"
                 value={name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                disabled={loading}
               />
             </div>
             <div>
@@ -262,6 +292,7 @@ const LoginPage = () => {
                 placeholder="your.email@company.com"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                disabled={loading}
               />
             </div>
             <div>
@@ -277,35 +308,43 @@ const LoginPage = () => {
                 placeholder=""
                 value={password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                disabled={loading}
               />
             </div>
             <div>
               <label htmlFor="confirm-password" className="sr-only">Потвърдете паролата</label>
               <p className="text-sm font-medium mb-2" style={{ color: '#333' }}>Потвърдете паролата</p>
-              <input
-                id="confirm-password"
-                name="confirm-password"
-                type="password"
-                autoComplete="new-password"
-                required
-                className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder=""
-                value={confirmPassword}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
-              />
-            </div>
-
-            {error && <p className="text-center text-sm text-red-600">{error}</p>}
-            {message && <p className="text-center text-sm text-green-600">{message}</p>}
-
-            <button
-              type="submit"
-              className="w-full py-2.5 px-4 text-sm font-semibold rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              style={{ background: 'linear-gradient(90deg, #4a69ff, #7a5dff)' }}
-            >
-              Регистрация
-            </button>
-          </form>
+                                <input
+                                  id="confirm-password"
+                                  name="confirm-password"
+                                  type="password"
+                                  autoComplete="new-password"
+                                  required
+                                  className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                  placeholder=""
+                                  value={confirmPassword}
+                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
+                                  disabled={loading}
+                                />
+                              </div>                
+                            {error && <p className="text-center text-sm text-red-600">{error}</p>}
+                            {message && <p className="text-center text-sm text-green-600">{message}</p>}
+                
+                            <button
+                              type="submit"
+                              className="w-full py-2.5 px-4 text-sm font-semibold rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
+                              style={{ background: 'linear-gradient(90deg, #4a69ff, #7a5dff)' }}
+                              disabled={loading}
+                            >
+                              {loading ? (
+                                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                  </svg>
+                                ) : (
+                                  'Регистрация'
+                                )}
+                            </button>          </form>
         )}
         <div className="text-center text-sm" style={{ color: '#5e6b8c' }}>
           {isRegistering ? 'Вече имате акаунт?' : 'Нямате акаунт?'}{' '}
