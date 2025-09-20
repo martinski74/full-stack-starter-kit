@@ -1,12 +1,12 @@
 # vibecode-full-stack-starter-kit - Full-Stack Development Environment
 
-Generated on: Thu Sep  4 01:37:12 PM EEST 2025
+Generated on: Thu Sep 4 01:37:12 PM EEST 2025
 Location: /home/softart/scripts/vibecode-full-stack-starter-kit
 
 ## 🚀 Tech Stack
 
 - **Frontend**: Next.js + React + TypeScript (Port 8200)
-- **Backend**: Laravel + PHP 8.2 + Nginx (Port 8201)  
+- **Backend**: Laravel + PHP 8.2 + Nginx (Port 8201)
 - **Database**: MySQL 8.0 (Port 8203)
 - **Cache**: Redis 7 (Port 8204)
 - **Development Tools**: Alpine container (Port 8205)
@@ -14,14 +14,17 @@ Location: /home/softart/scripts/vibecode-full-stack-starter-kit
 ## 📋 Quick Start
 
 1. **Start the environment:**
+
    ```bash
    ./start.sh
    ```
 
 2. **Access your applications:**
+
    - Frontend: http://localhost:8200
    - Backend: http://localhost:8201
    - API Status: http://localhost:8201/api/status
+   - Mail servise: http://localhost:8025/
 
 3. **Stop the environment:**
    ```bash
@@ -73,6 +76,7 @@ All services are isolated with unique names: `vibecode-full-stack-starter-kit_*`
 ## 💻 Development Commands
 
 ### Frontend Development
+
 ```bash
 # Access frontend container
 docker compose exec frontend sh
@@ -85,6 +89,7 @@ docker compose logs frontend -f
 ```
 
 ### Backend Development
+
 ```bash
 # Access PHP container
 docker compose exec php_fpm sh
@@ -105,6 +110,7 @@ docker compose logs php_fpm -f
 ```
 
 ### Database Operations
+
 ```bash
 # Connect to MySQL
 ./db-manage.sh connect
@@ -122,13 +128,15 @@ docker compose exec mysql mysql -u root -pvibecode-full-stack-starter-kit_mysql_
 ## 🔐 Database Configuration
 
 **MySQL Credentials:**
+
 - Host: mysql (internal) / localhost:8203 (external)
 - Database: vibecode-full-stack-starter-kit_app
 - Username: root
 - Password: vibecode-full-stack-starter-kit_mysql_pass
 
 **Redis Configuration:**
-- Host: redis (internal) / localhost:8204 (external)  
+
+- Host: redis (internal) / localhost:8204 (external)
 - Password: vibecode-full-stack-starter-kit_redis_pass
 
 ## 🛠️ Troubleshooting
@@ -136,10 +144,12 @@ docker compose exec mysql mysql -u root -pvibecode-full-stack-starter-kit_mysql_
 ### Common Issues
 
 1. **Port conflicts:**
+
    - Check if ports 8200-8205 are available
    - Use `netstat -tulpn | grep :PORT` to check port usage
 
 2. **Permission issues:**
+
    - Run `./laravel-setup.sh` to fix Laravel permissions
 
 3. **Services not starting:**
@@ -175,6 +185,7 @@ docker compose down -v
 ## 🔄 Updates
 
 To update the environment:
+
 1. Pull latest images: `docker compose pull`
 2. Rebuild services: `docker compose up -d --build`
 
@@ -182,4 +193,4 @@ To update the environment:
 
 **Generated with create-fullstack-env.sh**  
 **Project ID**: vibecode-full-stack-starter-kit  
-**Created**: Thu Sep  4 01:37:12 PM EEST 2025
+**Created**: Thu Sep 4 01:37:12 PM EEST 2025
