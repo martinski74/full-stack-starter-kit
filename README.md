@@ -1,5 +1,5 @@
 # Full-Stack Development Environment
-# Алтернативен проект който сам си изградих без готовия kit - [Here](https://github.com/martinski74/AI-tool-platform)
+## Алтернативен проект който сам си изградих без стартовия kit - [Here](https://github.com/martinski74/AI-tool-platform)
 
 Generated on: Thu Sep 4 01:37:12 PM EEST 2025
 Location: /home/softart/scripts/vibecode-full-stack-starter-kit
